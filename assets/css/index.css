@@ -1,0 +1,144 @@
+:root {
+    --space-bwidth : 1px;
+}
+
+body {
+    overflow : hidden;
+}
+
+div#name-div {
+    position : absolute;
+    left : 0px;
+    top : 0px;
+    width : 100vw;
+    height : 100vh;
+    z-index : 100;
+    background : white;
+}
+
+div#name-div > div#entry-ui {
+    position : absolute;
+    left : 50vw;
+    top : 50vh;
+    transform : translate(-25vw -25vh);
+    border : solid 2px gray;
+    padding : 5px;
+}
+
+/* div#name-div > input[type="text"]#name-entry */
+
+ul#messages-container {
+    list-style : none;
+    left : 50vw;
+    top : 0vh;
+    position : absolute;
+    transform : translateX(-50%);
+}
+
+@keyframes fade {
+    0% {
+        opacity : 100;
+    }
+    100% {
+        opacity : 0;
+    }
+}
+
+ul#messages-container > p {
+    color : rgb(var(--color));
+    /* background-color : rgba(var(--color), 0.25); */
+    /* padding : 5px; */
+    padding : 0px;
+    margin : 0px;
+    animation : fade 2.5s linear;
+}
+
+div#board {
+    position : absolute;
+    width : 50vmin;
+    height : 50vmin;
+    left : 50vw;
+    top : 50vh;
+    transform : translate(-25vmin, -25vmin);
+    /* border : solid 2px gray; */
+}
+
+div#cursor {
+    position : absolute;
+    width : calc(50vmin / 9);
+    height : calc(50vmin / 9);
+    left : calc(calc(50vw - 25vmin) + 50vmin / 9 * var(--x) + var(--space-bwidth));
+    top : calc(calc(50vh - 25vmin) + 50vmin / 9 * var(--y) + var(--space-bwidth));
+    background-color : rgba(var(--color), 0.5);
+}
+
+div#board > div.board_space {
+    position : absolute;
+    left : calc(50vmin / 9 * var(--x) + var(--space-bwidth));
+    top : calc(50vmin / 9 * var(--y) + var(--space-bwidth));
+    width : calc(50vmin / 9 - var(--space-bwidth) * 2);
+    height : calc(50vmin / 9 - var(--space-bwidth) * 2);
+    border : solid var(--space-bwidth) gray;
+    text-align : center;
+    font-size : calc(50vmin / 9 - var(--space-bwidth) * 2)
+}
+
+#board > .board_space > div {
+    position : absolute;
+    /* left : calc(50vmin / 9 * var(--x)); */
+    /* top : calc(50vmin / 9 * var(--y)); */
+    left : 0px;
+    top : 0px;
+    width : calc(50vmin / 9);
+    height : calc(50vmin / 9);
+    text-align : center;
+}
+
+div#board > div.board_space > div.inc {
+    clip-path : polygon(100%, 75% 100%, 100% 75%, 100%);
+    border : none;
+    background : transparent;
+}
+
+div#board > div.board_space.incor > div.inc {
+    background : red;
+}
+
+div#board > div.board_space > div {
+    background : inherit;
+    color : inherit;
+}
+
+div#board > div.board_space.const {
+    color : black;
+    background : #80808044;
+}
+div#board > div.board_space.confm {
+    color : gray;
+    background : transparent;
+}
+div#board > div.board_space.testv {
+    color : blue;
+    background : transparent;
+}
+div#board > div.board_space.norml {
+    color : black;
+    background : transparent;
+}
+
+div#board > div.board_space.bs-bl {
+    border-left-width : 2px;
+    border-left-color : black;
+}
+div#board > div.board_space.bs-bt {
+    border-top-width : 2px;
+    border-top-color : black;
+}
+div#board > div.board_space.bs-br {
+    border-right-width : 2px;
+    border-right-color : black;
+}
+div#board > div.board_space.bs-bb {
+    border-bottom-width : 2px;
+    border-bottom-color : black;
+}

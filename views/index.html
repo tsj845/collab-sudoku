@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sudoku</title>
+        <link rel="stylesheet" type="text/css" href="../assets/css/index.css" />
+        <link rel="icon" type="img/svg" href="../assets/tabicon.svg" />
+    </head>
+    <body>
+        <ul id="messages-container"></ul>
+        <div id="cursor" style="--x:0;--y:0;"></div>
+        <div id="board"></div>
+        <div id="ui"></div>
+        <div id="name-div">
+            <div id="entry-ui">
+                <input type="button" id="name-submit" value="submit" onclick="submit_nick()">
+                <input type="text" id="name-entry" placeholder="enter nickname" autocomplete="off" spellcheck="false" autocapitalize="off" onkeyup="if(event.code.toString()==='Enter'){document.getElementById('pswd-entry').focus()}">
+                <input type="password" id="pswd-entry" placeholder="enter code" autocomplete="off" onkeyup="if(event.code.toString()==='Enter'){document.getElementById('name-submit').click()}">
+            </div>
+        </div>
+        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+        <script src="../assets/js/game.js"></script>
+        <script src="../assets/js/anims.js"></script>
+    </body>
+</html>

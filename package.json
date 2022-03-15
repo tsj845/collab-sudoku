@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "main": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "path": "^0.12.7",
+    "socket.io": "^4.2.0",
+    "dotenv": "^16.0.0"
+  }
+}

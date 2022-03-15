@@ -1,0 +1,20 @@
+<!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" width="100" height="100">
+    <rect x="2" y="2" width="96" height="96" stroke="black" stroke-width="2" fill="none" />
+    <line x1="33" y1="2" x2="33" y2="98" stroke="black" stroke-width="2" />
+    <line x1="66" y1="2" x2="66" y2="98" stroke="black" stroke-width="2" />
+    <line x1="2" y1="33" x2="98" y2="33" stroke="black" stroke-width="2" />
+    <line x1="2" y1="66" x2="98" y2="66" stroke="black" stroke-width="2" />
+    <text x="10.5" y="-72.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">1</text>
+    <text x="42.5" y="-72.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">2</text>
+    <text x="75.5" y="-72.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">3</text>
+    <text x="10.5" y="-40.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">4</text>
+    <text x="42.5" y="-40.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">5</text>
+    <text x="75.5" y="-40.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">6</text>
+    <text x="10.5" y="-7.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">7</text>
+    <text x="42.5" y="-7.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">8</text>
+    <text x="75.5" y="-7.5" color="black" fill="black" stroke="black" style="font-size:200%;transform:translateY(100%)">9</text>
+</svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" width="100" height="100">
+    <rect x="4" y="4" width="92" height="92" stroke="black" stroke-width="4" fill="none" />
+    <text x="32.5" y="-27.5" color="black" fill="black" stroke="black" style="font-size:500%;transform:translateY(100%">1</text>
+</svg>
