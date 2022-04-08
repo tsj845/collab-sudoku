@@ -92,6 +92,7 @@ div#board > div.board_space {
     width : calc(50vmin / 9);
     height : calc(50vmin / 9);
     text-align : center;
+    user-select : none;
 }
 
 div#board > div.board_space > div.inc {

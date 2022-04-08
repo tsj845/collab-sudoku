@@ -25,35 +25,204 @@ let correct_board = [];
 /**@type {{constant : Array<Array<Number>>, confirmed : Array<Array<Number>>, test : Array<Array<Number>>, normal : Array<Array<Number>>, incorrect : Array<Array<Number>>}} */
 let sudoku_board = {};
 
-/**
- * board docs, in decending order of importance, higher layers override lower layers
- * constant - given values at the start of the game
- * confirmed - values that have been checked or revealed
- * test - testing values that can be wiped
- * normal - standard entries
- * 
- * incorrect - hidden layer, when a space is 1 that space is marked incorrect otherwise nothing is shown, solely used to give feedback on the "check" operation
- */
+function generate_board (remn) {
+    correct_board = [];
+    sudoku_board = {};
+    /**
+     * board docs, in decending order of importance, higher layers override lower layers
+     * constant - given values at the start of the game
+     * confirmed - values that have been checked or revealed
+     * test - testing values that can be wiped
+     * normal - standard entries
+     * 
+     * incorrect - hidden layer, when a space is 1 that space is marked incorrect otherwise nothing is shown, solely used to give feedback on the "check" operation
+     */
 
-for (const i in ["constant", "confirmed", "test", "normal", "incorrect"]) {
-    let seeder_board = [];
+    for (const i in ["constant", "confirmed", "test", "normal", "incorrect"]) {
+        let seeder_board = [];
+        for (let y = 0; y < 9; y ++) {
+            let lst = [];
+            for (let x = 0; x < 9; x ++) {
+                lst.push("0");
+            }
+            seeder_board.push(lst);
+        }
+        sudoku_board[["constant", "confirmed", "test", "normal", "incorrect"][i]] = seeder_board;
+    }
+
     for (let y = 0; y < 9; y ++) {
         let lst = [];
         for (let x = 0; x < 9; x ++) {
-            lst.push("0");
+            lst.push(0);
         }
-        seeder_board.push(lst);
+        correct_board.push(lst);
     }
-    sudoku_board[["constant", "confirmed", "test", "normal", "incorrect"][i]] = seeder_board;
+
+    // fill out diagonal matricies
+    for (let rep = 0; rep < 3; rep ++) {
+        let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        for (let y = 0; y < 3; y ++) {
+            for (let x = 0; x < 3; x ++) {
+                const ind = Math.floor(Math.random()*nums.length);
+                // console.log(ind, nums[ind]);
+                correct_board[y+(rep*3)][x+(rep*3)] = nums[ind];
+                nums.splice(ind, 1);
+            }
+        }
+    }
+
+    for (let y = 0; y < 9; y ++) {
+        console.log(correct_board[y].join(", "));
+    }
+
+    console.log("\n\n");
+
+    // Sudoku Generator
+    function fillValues () {
+        // Fill the diagonal of SRN x SRN matrices
+        // fillDiagonal();
+ 
+        // Fill remaining blocks
+        fillRemaining(0, 3);
+    }
+ 
+    // Fill the diagonal SRN number of SRN x SRN matrices
+    function fillDiagonal () {
+ 
+        for (let i = 0; i < 9; i += 3) {
+ 
+            // for diagonal box, start coordinates->i==j
+            fillBox(i, i);
+        }
+    }
+ 
+    // Fill a 3 x 3 matrix.
+    function fillBox(row, col) {
+        let num;
+        for (let i = 0; i < 3; i ++) {
+            for (let j = 0; j < 3; j++) {
+                while (!unUsedInBox(row, col, num)) {
+                    num = Math.floor(Math.random()*9)+1;
+                }
+ 
+                correct_board[row+i][col+j] = num;
+            }
+        }
+    }
+
+    // Returns false if given 3 x 3 block contains num.
+    function unUsedInBox(rowStart, colStart, num) {
+        for (let i = 0; i < 3; i ++) {
+            for (let j = 0; j < 3; j ++) {
+                if (correct_board[rowStart+i][colStart+j] === num) {
+                    return false;
+                }
+            }
+        }
+ 
+        return true;
+    }
+
+    // Check if safe to put in cell
+    function CheckIfSafe(i, j, num) {
+        console.log(i, j, num, unUsedInRow(i, num), unUsedInCol(j, num), unUsedInBox(i-(i%3), j-(j%3), num));
+        return (unUsedInRow(i, num) &&
+                unUsedInCol(j, num) &&
+                unUsedInBox(i-(i%3), j-(j%3), num));
+    }
+ 
+    // check in the row for existence
+    function unUsedInRow(i, num) {
+        for (let j = 0; j < 9; j ++) {
+           if (correct_board[i][j] === num) {
+                return false;
+           }
+        }
+        return true;
+    }
+ 
+    // check in the row for existence
+    function unUsedInCol(j, num) {
+        for (let i = 0; i < 9; i ++) {
+            if (correct_board[i][j] === num) {
+                return false;
+            }
+        }
+        return true;
+    }
+    let kill = 0;
+ 
+    // A recursive function to fill remaining
+    // matrix
+    function fillRemaining(i, j) {
+        console.log("FR");
+        if (kill >= 15) {
+            throw "FUCK";
+        }
+        kill += 1;
+        if (j >= 9 && i < 8) {
+            i = i + 1;
+            j = 0;
+        }
+        if (i >= 9 && j >= 9) {
+            return true;
+        }
+ 
+        if (i < 3) {
+            if (j < 3) {
+                j = 3;
+            }
+        }
+        else if (i < 6) {
+            if (j === i) {
+                j = j + 3;
+            }
+        } else {
+            if (j === 6) {
+                i = i + 1;
+                j = 0;
+                if (i >= 9) {
+                    return true;
+                }
+            }
+        }
+ 
+        for (let num = 1; num <= 9; num ++) {
+            if (CheckIfSafe(i, j, num)) {
+                correct_board[i][j] = num;
+                if (fillRemaining(i, j+1)) {
+                    return true;
+                }
+ 
+                correct_board[i][j] = 0;
+            }
+        }
+        return false;
+    }
+
+    // fillRemaining(0, 3);
+    fillValues();
+
+    let spaces = [];
+
+    for (let y = 0; y < 9; y ++) {
+        for (let x = 0; x < 9; x ++) {
+            spaces.push([y, x]);
+        }
+    }
+
+    for (let i = 0; i < (81 - remn); i ++) {
+        const ind = Math.floor(Math.random()*spaces.length);
+        sudoku_board["constant"][spaces[ind][0]][spaces[ind][1]] = correct_board[spaces[ind][0]][spaces[ind][1]];
+        spaces.splice(ind, 1);
+    }
+
+    for (let y = 0; y < 9; y ++) {
+        console.log(correct_board[y].join(", "));
+    }
 }
 
-for (let y = 0; y < 9; y ++) {
-    let lst = [];
-    for (let x = 0; x < 9; x ++) {
-        lst.push(0);
-    }
-    correct_board.push(lst);
-}
+generate_board(0);
 
 /**
  * 
